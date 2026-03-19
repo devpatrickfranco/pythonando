@@ -1,0 +1,17 @@
+Maçã|5|Frutas|João|Patrick|20|01/03/2026|
+Maçã|5|Frutas|João|Patrick|20|02/03/2026|
+Maçã|100|Frutas|Vendedor 1|Comprador 1|10|05/03/2026|
+Maçã|5|Frutas|Vendedor 1|Comprador 1|10|05/03/2026|
+Banana|2|Frutas|Vendedor 1|Comprador 1|2|06/03/2026|
+Abacaxi|5|Frutas|Vendedor 2|Comprador 2|3|07/03/2026|
+Pão|3|Padaria|Vendedor 3|Comprador 3|4|08/03/2026|
+Leite|4|Laticínios|Vendedor 4|Comprador 4|5|09/03/2026|
+Arroz|10|Mercearia|Vendedor 5|Comprador 5|6|10/03/2026|
+Feijão|8|Mercearia|Vendedor 6|Comprador 6|7|11/03/2026|
+Carne|15|Açougue|Vendedor 7|Comprador 7|8|12/03/2026|
+Frango|12|Açougue|Vendedor 8|Comprador 8|9|14/03/2026|
+Peixe|18|Açougue|Vendedor 9|Comprador 9|10|15/03/2026|
+Bolo|6|Padaria|Vendedor 10|Comprador 10|11|16/03/2026|
+Torta|8|Padaria|Vendedor 11|Comprador 11|12|17/03/2026|
+Pizza|10|Padaria|Vendedor 12|Comprador 12|13|18/03/2026|
+Salgadinho|3|Padaria|Vendedor 13|Comprador 13|14|19/03/2026|

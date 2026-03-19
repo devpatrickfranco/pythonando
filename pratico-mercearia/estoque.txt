@@ -1,0 +1,14 @@
+Maçã | 5 | SEM CATEGORIA | 90 | 
+Banana | 2 | SEM CATEGORIA | 18 | 
+Abacaxi | 5 | SEM CATEGORIA | 7 | 
+Pão | 3 | Padaria | 11 | 
+Leite | 4 | Frios | 20 | 
+Arroz | 10 | Mercearia | 24 | 
+Feijão | 8 | Mercearia | 13 | 
+Carne | 15 | SEM CATEGORIA | 2 | 
+Frango | 12 | SEM CATEGORIA | 6 | 
+Peixe | 18 | SEM CATEGORIA | 2 | 
+Bolo | 6 | Padaria | 74 | 
+Torta | 8 | Padaria | 78 | 
+Pizza | 10 | Padaria | 82 | 
+Salgadinho | 3 | Padaria | 86 | 

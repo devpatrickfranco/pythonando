@@ -1,5 +1,6 @@
 from model import Produto
 from model import *
+from datetime import datetime
 
 class DaoCategoria:
 
@@ -27,32 +28,34 @@ class DaoVendas:
     def save(cls, venda: Vendas):
         with open("vendas.txt", "a") as arq:
             arq.writelines(venda.itens_vendido.nome + "|" + 
-                           venda.itens_vendido.preco + "|" + 
+                           str(venda.itens_vendido.preco) + "|" + 
                            venda.itens_vendido.categoria + "|" +
-                           venda.itens_vendido.vendedor + "|" + 
-                           venda.itens_vendido.comprador + "|" +
-                           str(venda.itens_vendido.qnt_vendida) + "|")
+                           venda.vendedor + "|" + 
+                           venda.comprador + "|" +
+                           str(venda.qnt_vendida) + "|" +
+                           datetime.strftime(venda.data, "%d/%m/%Y") + "|")
             arq.writelines('\n')
     
     @classmethod
     def read(cls):
-        with open("venda.txt", "r") as arq:
+        with open("vendas.txt", "r") as arq:
             cls.venda = arq.readlines()
         cls.venda = list(map(lambda x: x.replace("\n", ""), cls.venda))
         cls.venda = list(map(lambda x: x.split("|"), cls.venda))
         vendas = []
         for i in cls.venda:
-            vendas.append(Venda(Produto(i[0], i[1], i[2], i[3], i[4], i[5], i[6])))
+            data = datetime.strptime(i[6], "%d/%m/%Y")
+            vendas.append(Venda(Produto(i[0], i[1], i[2]), i[3], i[4], int(i[5]), data))
         return vendas
-
+    
 class DaoEstoque:
     @classmethod
     def save(cls, produto: Produto, quantidade):
         with open("estoque.txt", "a") as arq:
-            arq.writelines(produto.nome + "|" + 
-                           produto.preco + "|" + 
-                           produto.categoria + "|" +
-                           str(quantidade) + "|")
+            arq.writelines(produto.nome + " | " + 
+                           str(produto.preco) + " | " + 
+                           produto.categoria + " | " +
+                           str(quantidade) + " | ")
             arq.writelines('\n')
 
     @classmethod
@@ -64,7 +67,8 @@ class DaoEstoque:
         estoque = []
         if len(cls.estoque) > 0:
             for i in cls.estoque:
-                estoque.append(Produto(i[0], i[1], i[2], i[3]))
+                produto = Produto(i[0].strip(), i[1].strip(), i[2].strip())
+                estoque.append(Estoque(produto, int(i[3].strip())))
         return estoque
 
 class DaoFornecedor:
@@ -92,7 +96,7 @@ class DaoFornecedor:
 class DaoPessoa:
     @classmethod
     def save(cls, pessoa: Pessoa):
-        with open("cliente.txt", "a") as arq:
+        with open("clientes.txt", "a") as arq:
             arq.writelines(pessoa.nome + "|" + 
                            pessoa.telefone + "|" + 
                            pessoa.cpf + "|" +
@@ -101,7 +105,7 @@ class DaoPessoa:
         
     @classmethod
     def read(cls):
-        with open("cliente.txt", "r") as arq:
+        with open("clientes.txt", "r") as arq:
             cls.clientes = arq.readlines()
         cls.clientes = list(map(lambda x: x.replace("\n", ""), cls.clientes))
         cls.clientes = list(map(lambda x: x.split("|"), cls.clientes))
