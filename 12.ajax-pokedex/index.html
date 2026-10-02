@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+
+            </div>
+            <div class="col-sm">
+                <div style="text-align: center;">
+                    <h1>Cadastro</h1>
+                </div>
+                <br>
+                <p>Nome:</p>
+                <input id="nome" class="form-control" type="text" placeholder="Digite seu nome:">
+            
+                <br>
+                <p>Email:</p>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Digite seu email:">
+            
+                <br>
+                <p>Senha:</p>
+                <input type="password" name="senha" id="senha" class="form-control" placeholder="Digite sua senha:">
+
+                <br>
+                <button onclick="cadastrar()" class="btn btn-success btn-lg">Cadstrar</button>
+                
+                <br>
+                <p class="mt-2">Faça login caso já tenha conta</p>
+                <a href="login.html" rel="noopener noreferrer">Login</a>  
+            
+            </div>
+            <div class="col-sm"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        
+        function cadastrar(){
+            let nome = document.getElementById('nome').value
+            let email = document.getElementById('email').value
+            let senha = document.getElementById('senha').value
+
+
+            $.ajax({
+                url: `http://127.0.0.1:5000/cadastro?nome=${nome}&email=${email}&senha=${senha}`,
+                method: 'POST',
+                success: function (resposta) {
+                    console.log(resposta)
+                },
+                error: function (erro) {
+                    console.log(erro.responseJSON || erro)
+                }
+            })
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

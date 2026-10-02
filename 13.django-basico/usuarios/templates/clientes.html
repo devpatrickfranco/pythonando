@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block 'conteudo' %}
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- CONTEÚDO -->
+    <div class="max-w-7xl mx-auto p-8">
+        <h1 class="text-3xl font-bold mb-8">Pacientes</h1>
+        <div class="grid grid-cols-2 gap-8">
+            <!-- LISTA DE PACIENTES -->
+            <div class="bg-white rounded-xl shadow p-6">
+                <h2 class="text-xl font-semibold mb-4">Lista de Pacientes</h2>
+
+                <form action="{% url 'clientes' %}" method="GET">
+                    <input name='nome' type="text" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4" placeholder="Digite o nome..."/>
+                    
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition mt-4">
+                        Filtrar Paciente
+                    </button>
+                
+                </form>
+
+                {% for cliente in clientes %}
+                <ul class="space-y-4">
+                    <li class="border rounded-lg p-4 flex justify-between items-center">
+                        <div>
+                            <a href="{% url 'ver_cliente' cliente.id %}">
+                                <p class="font-medium">{{cliente.nome}}</p>
+                                <p class="text-sm text-gray-500">{{cliente.email}}</p>
+                            </a>
+                        </div>
+                        <span class="text-sm 
+                                    {%if cliente.queixa == 'D'%} bg-purple-100 text-purple-700
+                                     {% else %} bg-cyan-100 text-cyan-700
+                                     {% endif %} px-3 py-1 rounded">
+                            {{cliente.get_queixa_display}}
+                        </span>
+                    </li>
+                </ul>
+                {% endfor %}
+            </div>
+            <!-- FORMULÁRIO -->
+            <div class="bg-white rounded-xl shadow p-6">
+                <h2 class="text-xl font-semibold mb-4">Cadastrar Paciente</h2>
+
+                {% for message in messages %}
+                    <div class="rounded-md {{message.tags}} mt-4" >
+                        <div class="flex">
+                            <div class="ml-3 py-4">{{ message }}</div>
+                        </div>
+                    </div>
+                {%endfor%}
+
+                <form class="space-y-4" action="{% url 'clientes' %}" method="post" >
+                    {% csrf_token %}
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Nome</label>
+                        <input name='nome' type="text" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Email</label>
+                        <input name='email' type="email" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Queixa Principal</label>
+                        <select  name='queixa' class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Selecione...</option>
+                            <option value="D">Depressão</option>
+                            <option value="A">Ansiedade</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                        Cadastrar Paciente
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+{% endblock 'conteudo' %}

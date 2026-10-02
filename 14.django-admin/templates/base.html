@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PsicoGestão</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
+
+            <div class="flex items-center gap-8">
+                <h1 class="text-xl font-bold text-blue-600">
+                    PsicoGestão
+                </h1>
+
+                <div class="flex gap-6 text-gray-600 text-sm">
+                    <a href="#" class="hover:text-blue-600 transition">
+                        Pacientes
+                    </a>
+
+                    <a href="#" class="hover:text-blue-600 transition">
+                        Sessões
+                    </a>
+
+                    <a href="#" class="hover:text-blue-600 transition">
+                        Agenda
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-blue-600 text-white flex items-center justify-center rounded-full text-sm font-medium">
+                    A
+                </div>
+
+                <span class="text-sm text-gray-600">
+                    Dra. Ana
+                </span>
+            </div>
+
+        </div>
+    </nav>
+    {% block 'conteudo' %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block 'conteudo' %}
+
+<div class="max-w-xl mx-auto p-8">
+    <div class="bg-white rounded-xl shadow p-6">
+        <div class="flex items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center shrink-0">
+                    {% if cliente.foto %}
+                        <img class="" src="{{ cliente.foto.url }}" alt="foto do cliente {{cliente.nome}}">
+                    {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-400">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+                    {%endif%}
+                </div>
+                <div>
+                    <p class="text-xl font-bold text-gray-900">{{ cliente.nome }}</p>
+                    <p class="text-sm text-gray-500">{{ cliente.email }}</p>
+                </div>
+            </div>
+            <span class="text-sm shrink-0
+                        {% if cliente.queixa == 'D' %} bg-purple-100 text-purple-700
+                        {% else %} bg-cyan-100 text-cyan-700
+                        {% endif %} px-3 py-1 rounded">
+                {{ cliente.get_queixa_display }}
+            </span>
+        </div>
+
+        <hr class="my-6 border-gray-200">
+
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Foto de Perfil</h2>
+
+        <form class="space-y-4" action="{% url 'ver_cliente' cliente.id %}"  method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <label class="block text-sm font-medium mb-1">Selecionar imagem</label>
+                <input type="file" name="foto" accept="image/*"
+                       class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                Enviar Foto
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

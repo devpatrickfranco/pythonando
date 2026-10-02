@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block 'titulo' %} Cadastro {% endblock %}
+
+{% block 'conteudo' %}
+<div class="container">
+    <br>
+    {% if messages %}
+        {%for  i in messages%}
+            <div class="alert alert-{{i.tags}}">
+                {{i}}
+            </div>
+        {%endfor%}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-3">
+            
+        </div>
+        <div class="col-md flex-column">
+            <h1>Cadastre-se</h1>
+            <hr>
+            <form method="POST" action="{% url 'valida_cadastro' %}"> 
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" name="nome" id="nome" placeholder="Digite seu nome: ">
+                </div>
+            
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Digite seu email:">
+                </div>
+
+                <div class="mb-3">
+                    <label for="senha" class="form-label">Senha: </label>
+                    <input type="password" class="form-control" name="senha" id="senha" placeholder="Digite sua senha: ">
+                </div>
+                
+                <br>
+                <hr>
+                <h3>Dados Residecial</h3>
+                <div class="mb-3">
+                    <label for="cep" class="form-label">CEP:</label>
+                    <input type="text" class="form-control" name="cep" id="cep" placeholder="Digite seu CEP:">
+                </div>
+                
+
+                <div class="mb-3">
+                    <label for="rua" class="form-label">Rua:</label>
+                    <input type="text" class="form-control" name="rua" id="rua" placeholder="Digite o nome da sua rua:">
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="numero" class="form-label">Numero:</label>
+                    <input type="text" class="form-control" name="numero" id="numero" placeholder="Digite o numero da sua residencia:">
+                </div>
+
+            
+                <input class="btn btn-success btn-lg" type="submit" value="Enviar">
+                <a class="btn btn-primary btn-lg text-light" href="{% url 'login' %}">Login</a>
+            </form>
+        </div>
+        <div class="col-md-3">
+            
+        </div>
+    </div>
+</div>
+    
+{% endblock %}

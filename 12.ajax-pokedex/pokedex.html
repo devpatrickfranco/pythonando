@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Pokedex</title>
+</head>
+<body>
+    <div id="container" class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Pokedex</h1>
+            <span id="info-pagina" class="text-muted"></span>
+        </div>
+
+        <div id="linhas" class="row g-3"></div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <div class="btn-group" role="group" aria-label="Paginação">
+                <button id="btn-prev" type="button" class="btn btn-outline-secondary">&lt;</button>
+                <button id="btn-pagina" type="button" class="btn btn-outline-secondary" disabled>1</button>
+                <button id="btn-next" type="button" class="btn btn-outline-secondary">&gt;</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+
+        if ( !localStorage.getItem('acess_token')){
+            window.location.href = 'login.html'
+        }
+
+        let paginaAtual = 1;
+        const itensPorPagina = 9;
+        const totalPokemon = 1025;
+        const totalPaginas = Math.ceil(totalPokemon / itensPorPagina);
+
+        function atualizarBotoes() {
+            document.getElementById('btn-prev').disabled = paginaAtual === 1;
+            document.getElementById('btn-next').disabled = paginaAtual === totalPaginas;
+            document.getElementById('btn-pagina').textContent = paginaAtual;
+            document.getElementById('info-pagina').textContent =
+                `Página ${paginaAtual} de ${totalPaginas}`;
+        }
+
+        function carregarPokemon() {
+            const linha = document.getElementById('linhas');
+            linha.innerHTML = '';
+            atualizarBotoes();
+
+            const inicio = (paginaAtual - 1) * itensPorPagina + 1;
+            const fim = Math.min(inicio + itensPorPagina - 1, totalPokemon);
+
+            for (let i = inicio; i <= fim; i++) {
+                $.ajax({
+                    url: 'https://pokeapi.co/api/v2/pokemon/' + i,
+                    method: 'get',
+                    async: false,
+                    success: function (resposta) {
+                        const imagem = resposta.sprites.other.dream_world.front_default
+                            || resposta.sprites.front_default;
+
+                        const conteudo = `
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="card h-100">
+                                    <img src="${imagem}" class="card-img-top p-3" alt="${resposta.name}" style="height: 200px; object-fit: contain;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-capitalize">${resposta.name}</h5>
+                                        <a class="btn btn-success">Ver mais</a>
+                                    </div>
+                                </div>
+                            </div>`;
+
+                        linha.innerHTML += conteudo;
+                    }
+                });
+            }
+        }
+
+        document.getElementById('btn-prev').addEventListener('click', function () {
+            if (paginaAtual > 1) {
+                paginaAtual--;
+                carregarPokemon();
+            }
+        });
+
+        document.getElementById('btn-next').addEventListener('click', function () {
+            if (paginaAtual < totalPaginas) {
+                paginaAtual++;
+                carregarPokemon();
+            }
+        });
+
+        carregarPokemon();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
